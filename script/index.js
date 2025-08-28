@@ -24,11 +24,13 @@ const copyCount = document.getElementById("copy-count");
 for (let copy of copyBtn) {
   copy.addEventListener("click", function (e) {
     e.preventDefault;
+    const count = parseInt(document.getElementById("copy-count").innerText);
+    const numberCount = 1;
+    let copyNUmberIncrease = count + numberCount;
+    document.getElementById("copy-count").innerText = copyNUmberIncrease;
     let copyCount = copy.parentNode.parentNode.children[2].innerText;
     console.log(copyCount);
     alert("Number has been copied  " + copyCount);
-    count++;
-    copyCount.innerText = count;
     navigator.clipboard.writeText(copyCount);
     then(() => {
       alert("Text copied to clipboard");
@@ -60,3 +62,4 @@ for (let call of callBtn) {
     }
   });
 }
+
