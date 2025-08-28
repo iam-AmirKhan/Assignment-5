@@ -75,3 +75,10 @@ for (let call of callBtn) {
     historyCommon.append(cartNew);
   });
 }
+
+// clear button handler
+document.getElementById("clear-btn").addEventListener("click", function (e) {
+  e.preventDefault;
+  const historyCmn = document.getElementById("history-parent");
+  historyCmn.remove();
+});
