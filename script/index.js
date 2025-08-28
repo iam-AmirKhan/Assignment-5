@@ -3,21 +3,6 @@ function getElement(id){
     return element;
 }
 
-// // id name 
-// function getElementId(id){
-//     const element = document.getElementById(id);
-//     return element;
-// }
-
-// // class name
-// function getElementClass(id){
-//     const element = document.getElementsByClassName(id);
-//     return element;
-// }
-
-
-// heart button
-
 let count = 0; 
 
 const hearts = document.querySelectorAll('.fa-heart'); 
@@ -32,11 +17,30 @@ hearts.forEach(heart => {
 });
 
 
+
+
+// copy button 
+let counter = 0;
+
+const copyBtn = document.getElementsByClassName('copy-button'); 
+const copyCount = document.getElementById('copy-count');
+
+for (let call of copyBtn) {
+    call.addEventListener('click', function () {
+        alert("Copy koiren na plz!");
+        count++; 
+        copyCount.innerText = count; 
+    });
+}
+
+
+
+
 // call button 
 const callBtn = document.getElementsByClassName('call-button'); 
 for (let call of callBtn) {
     call.addEventListener('click', function () {
-        console.log("Call button clicked!");
+        alert("Call deyen na plz!");
     });
 }
 
