@@ -12,7 +12,6 @@ hearts.forEach((heart) => {
   heart.addEventListener("click", function () {
     count++;
     likeCount.innerText = count;
-    console.log("Heart clicked! Count:", count);
   });
 });
 
@@ -47,7 +46,6 @@ for (let call of callBtn) {
     e.preventDefault;
     const nationalEmText = call.parentNode.parentNode.childNodes[3].innerText;
     const nationalEmNumber = call.parentNode.parentNode.childNodes[5].innerText;
-    console.log(nationalEmNumber);
     let coinElement = document.getElementById("coin-count");
     let coinCount = parseInt(coinElement.innerText);
     let number = 20;
@@ -60,6 +58,20 @@ for (let call of callBtn) {
         "You don't have enough coins. You need at least 20 coins to make a call."
       );
     }
+
+    // History append child
+    const historyCommon = document.getElementById("history-parent");
+    let time = new Date().toLocaleTimeString();
+    const cartNew = document.createElement("div");
+    cartNew.innerHTML = `
+     <div class="flex justify-between px-10 py-7 rounded-lg">
+              <div>
+                <h3 class="font-semibold text-sm">${nationalEmText}</h3>
+                <span>${nationalEmNumber}</span>
+              </div>
+              <div>${time}</div>
+            </div>
+    `;
+    historyCommon.append(cartNew);
   });
 }
-
