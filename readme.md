@@ -1,35 +1,99 @@
-question 1:- What is the difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll? agula sob e DOM (Document Object Model) থেকে element খুঁজে বের করার জন্য ব্যবহার হয়। তবে আলাদা আলাদা কাজ করে।
+ Question 1: Difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll
+
+getElementById
 
 
- 1.getElementById শুধু একটা element খুঁজে pawa jai যেটার id দেওয়া আছে। সরাসরি element object রিটার্ন করে যদি ওই id না থাকে null রিটার্ন করবে। সবচেয়ে ফাস্ট কাজ করে, কারণ id সবসময় ইউনিক হয়
+শুধু একটা element খুঁজে বের করে যেটার unique id আছে।
 
-2.getElementsByClassName একসাথে অনেকগুলো element খুঁজে আনে যেগুলোর class একই। আলাদা element নিতে হলে index ব্যবহার করতে হয় jemon ([0], [1] ইত্যাদি)। এটা live থাকে → DOM এ কিছু add/remove করলে সাথে সাথে update hoi।
+সরাসরি সেই element return করে (null return করবে যদি না থাকে)।
 
-3.querySelector এখানে CSS selector ব্যবহার করা যায় (যেমন: .class, #id, div > p ইত্যাদি)। শুধু প্রথম মিলে যাওয়া element রিটার্ন করে।
-querySelectorAll অনেক element লাগলে আর CSS selector ব্যবহার করতে চাইলে querySelectorAll ব্যবহার করো।
-এটা সব element নিয়ে আসবে, শুধু প্রথমটা না। ফলাফল NodeList আকারে আসবে, যেটার উপর loop চালানো যাবে।
+সবচেয়ে fast কাজ করে কারণ id সবসময় unique হয়।
+
+getElementsByClassName
+
+একই class থাকা একাধিক element একসাথে return করে।
+
+এটি একটি HTMLCollection return করে (array-এর মতো, কিন্তু পুরোপুরি array না)।
+
+Live থাকে → DOM-এ কিছু add/remove করলে সাথে সাথে update হয়।
+
+আলাদা element নিতে হলে index ব্যবহার করতে হয় (যেমন: [0], [1])।
+
+querySelector
+
+এখানে CSS selector ব্যবহার করা যায় (যেমন: .class, #id, div > p)।
+
+শুধুমাত্র প্রথম মিলে যাওয়া element return করে।
+
+querySelectorAll
+
+CSS selector দিয়ে সব matching element return করে।
+
+ফলাফল আসে NodeList আকারে (যেটা loop করা যায়)।
+
+এটি live না → DOM পরিবর্তন হলেও নিজে থেকে update হয় না।
 
 
 
-question 2:-How do you create and insert a new element into the DOM? 1.document.createElement("div") diye .Notun akta element ke create korbo 2. 2.নতুন element-এর ভেতরে লেখা, ছবি, বা অন্য কোনো কনটেন্ট যোগ করা যায় এবং element-এ class, id বা style-ও দেওয়া যায়। 3.Parent element নির্বাচন করা , যেমন getElementById অথবা অন্য কোনো DOM selection methods দিয়ে নির্বাচন করা 3.DOM-এ যুক্ত করা যেমন ,parent element-এর ভেতরে নতুন element-টাকে ঢুকিয়ে দেওয়া হয়
+
+ Question 2: How do you create and insert a new element into the DOM?
+
+Element তৈরি করা → document.createElement("div")
+
+Content যোগ করা → .innerText বা .innerHTML ব্যবহার করে টেক্সট/HTML দেওয়া যায়।
+
+Attribute/Style যোগ করা → .id, .className, .style দিয়ে দেওয়া যায়।
+
+Parent নির্বাচন করা → যেমন document.getElementById("parentId") দিয়ে parent element বের করা।
+
+DOM-এ ঢোকানো → appendChild() বা append() দিয়ে parent-এর মধ্যে নতুন element বসানো হয়।
 
 
 
-question 3:-What is Event Bubbling and how does it work? ইভেন্ট বাবলিং হলো জাভাস্ক্রিপ্টে একটি প্রক্রিয়া যেখানে কোনো element-এ ইভেন্ট (যেমন click, mouseover) ঘটে এবং সেই ইভেন্টটি ধাপে ধাপে parent element-এর দিকে "উপরে উঠে" যায়। সহজভাবে বললে, যখন তুমি কোনো ছোট element-এ click করো, সেই ইভেন্ট প্রথমে সেই element-এ ধরা পড়ে, তারপর ধাপে ধাপে উপরের parent element-গুলোর মধ্যে ছড়িয়ে যায়।
 
-এটি যেভাবে কাজ করে ; 1.একটি button-এর ভিতরে click করলে ,সেই click ইভেন্ট প্রথমে button element-এ active হয়। 2.এরপর সেই ইভেন্ট সেই button-এর parent element-এ চলে যায়। 3.তারপর parent-এর parent element-এ চলে যায়। 4.এইভাবে ইভেন্ট সব উপরের level-এর element-এ পৌঁছানো পর্যন্ত চলে যায়।
+ Question 3: What is Event Bubbling and how does it work?
+
+Event Bubbling হলো JavaScript-এর একটা mechanism যেখানে event প্রথমে target element-এ ঘটে এবং তারপর ধাপে ধাপে parent → grandparent → document পর্যন্ত propagate হয়।
+
+Example workflow:
+
+তুমি button-এর ভেতরে click করলে → event প্রথমে button-এ trigger হবে।
+
+তারপর সেই event parent element-এ যাবে।
+
+এরপর parent-এর parent-এ যাবে।
+
+এইভাবে DOM-এর root পর্যন্ত উঠতে থাকে।
 
 
 
-question 4:-What is Event Delegation in JavaScript? Why is it useful? Event Delegation in JavaScript হলো এমন একটি টেকনিক, যেখানে আমরা প্রতিটি child element-এর জন্য আলাদা event listener বসানোর পরিবর্তে তাদের parent element-এর উপর একটি event listener বসাই। তারপর event bubbling-এর মাধ্যমে কোন child element-এ event ঘটেছে সেটা detect করে কাজ করি।
 
-এটা useful কারণ— 1.এতে কোড ছোট এবং maintainable হয়। 2.অনেক child element থাকলেও performance ভালো থাকে। 3.Dynamically নতুন element যোগ হলে সেটার উপরেও event কাজ করবে, extra কিছু করতে হয় না।
+Question 4: What is Event Delegation in JavaScript? Why is it useful?
+
+Event Delegation হলো একটা technique যেখানে প্রত্যেক child element-এ আলাদা event listener না বসিয়ে parent element-এ একটাই listener বসানো হয়। তারপর event bubbling-এর সাহায্যে বোঝা যায় কোন child element-এ event ঘটেছে।
+
+Why useful?
+
+কোড ছোট ও সহজ হয়।
+
+Performance ভালো থাকে (একটা listener, অনেক child handle করতে পারে)।
+
+Dynamically নতুন element যোগ হলে সেগুলোর উপরেও event কাজ করবে।
 
 
 
 
-question 5:-What is the difference between preventDefault() and stopPropagation() methods?
 
-preventDefault() → এই মেথড কোনো element-এর default behavior বন্ধ করে দেয়। যেমন, form-এর submit button চাপলে সাধারণত পেজ reload হয়। কিন্তু preventDefault() ব্যবহার করলে সেই reload আর হবে না।
+ Question 5: Difference between preventDefault() and stopPropagation()
 
-stopPropagation() → এই মেথড event bubbling বা event capturing বন্ধ করে দেয়। মানে হলো, event টা parent element-এ আর উপরে propagate হবে না।
+preventDefault()
+
+Element-এর default behavior বন্ধ করে দেয়।
+
+উদাহরণ: Form submit করলে page reload হয় → preventDefault() দিলে আর reload হবে না।
+
+stopPropagation()
+
+Event-এর propagation বন্ধ করে দেয়।
+
+মানে, event টা আর parent element-এর দিকে bubble/capture হবে না।
